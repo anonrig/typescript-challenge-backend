@@ -1,11 +1,18 @@
-import express from "express";
-import Stays from "./stays";
+import { build } from './server'
+import Logger from './logger'
+import config from './config'
+import mongodb from './db'
 
-const port = 3000;
-const app = express();
+const logger = Logger.withScope('application').withTag('start')
 
-app.use("/stays", Stays);
+export async function serve(): Promise<void> {
+  const f = await build()
 
-app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
-});
+  await f.listen(config.port, '0.0.0.0')
+  logger.info(`Application started listening on port=${config.port}`)
+
+  await mongodb.connect()
+}
+
+serve().catch((error) => logger.error(error))
+
