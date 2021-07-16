@@ -28,6 +28,28 @@ export default function(f: FastifyInstance): void {
         },
         required: ['id']
       },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            rows: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  _id: { type: 'string' },
+                  date: { type: 'string' },
+                  listing_id: { type: 'string' },
+                  reviewer_id: { type: 'string' },
+                  reviewer_name: { type: 'string' },
+                  comments: { type: 'string' },
+                },
+                required: ['_id', 'date', 'listing_id', 'reviewer_id', 'reviewer_name', 'comments']
+              }
+            }
+          }
+        }
+      }
     }
   },
   async function({ params }, reply) {
