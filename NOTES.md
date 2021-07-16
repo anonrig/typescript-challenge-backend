@@ -38,5 +38,7 @@ Ran all test suites.
 
 ## Issues Faced
 
-- Bottlenecks:
+- Memory limit:
 Sort exceeded memory limit of 33554432 bytes, but did not opt in to external sorting.
+
+- MongoDB native driver does not convert number decimal to number in javascript but just returns `{"$numberDecimal": "3.0"}` for that property.
